@@ -1,65 +1,9 @@
-Syncilainen
+syncilainen
 ==============================================================================
-
 Monitor a pre-configured directory for changes and then synch
 automatically to a preconfigured version control respository.
 
-- Python
-    - pynotify: linux
-    - fsevents: mac
-    - xxx: windows (?)
-
-- Git
-    - Dulwich?
-    - GitPython?
-    - wrap system calls to git executable?
-
-- or bzr/hg?
-    - better python integration?
-
-- github?
-    - could be any remote.
-    - assumes ssh keys are in place
-    
-
-Configuration
+Status
 ------------------------------------------------------------------------------
-- Directory:
-    - /foo/bar
-
-- Remote:
-    - https://github.com/user/bar.git
-
-- Other:
-    - commit_after_n_changes: 3
-        - commit after every 3 changes to any files in the watched directory.
-    - push_after_n_commits: 1
-        - push after every commit.
-    - repack_after_n_commits: 20
-        - repack the local repository after 20 commits
-    - conflict_email_address: user@foo.com
-        - email address to notify in case of conflict or git error
-        - some other notification?
-            - growl or similar local notification?
-            - native notification, e.g. toolbar/taskbar/etc?
-            - sms?
-            - log file
-                - YES but maybe not the only notification
-            - jabber
-    - XXX
-
-
-Process
-------------------------------------------------------------------------------
-- Create directory _DIR_
-- Init git repository
-- Add remote origin
-- Start (daemon?)
-- Read in and parse configuration
-- Start watching _DIR_
-- On change:
-    - modified_files_list = get_modified_or_new_files()
-    - git add _DIR_
-    - git commit -m "syncilainen: %s: %s" % (date_str, modified_files_list)
-    - git push origin
+Alpha work in progress
 
