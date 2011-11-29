@@ -26,7 +26,7 @@ class VCS(object):
         return exec_cmd(cmd, self.repo_directory)
 
     def push(self, remote='origin', branch='master'):
-        cmd = "git push %s %s" % (remote, branch)
+        cmd = "git push --porcelain %s %s" % (remote, branch)
         return exec_cmd(cmd, self.repo_directory)
 
     def commit_and_push(self, message):
