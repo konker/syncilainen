@@ -60,3 +60,14 @@ Process
     - git commit -m "syncilainen: %s: %s" % (date_str, modified_files_list)
     - git push origin
 
+- should there be a periodic pull?
+- how to get around asking for private key passphrase?
+
+- XXX: how to manage conflicts?
+    - could each 'source' have it's own branch?
+        - merge in periodically?
+        - would that solve the underlying issue?
+    - notify somehow?
+    - force overwrite?
+        - this could be dodgey
+
