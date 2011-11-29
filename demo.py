@@ -8,8 +8,8 @@ notifier = Notifier('Syncilainen')
 
 def vcs_commit_callback(event):
     vcs.pull()
-    status = vcs.status()
 
+    status = vcs.status()
     if len(status) > 0:
         modes, files = zip(*status)
         message = "syncilainen: %s: %s" % (datetime.now().isoformat(), ','.join(files))
