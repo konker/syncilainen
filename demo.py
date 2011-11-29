@@ -11,10 +11,10 @@ def cb(event):
         message = "syncilainen: %s: %s" % (datetime.now().isoformat(), ','.join(files))
 
         print(message)
-        vcs.pull('origin')
+        vcs.pull('origin', 'master')
         vcs.add('.')
         vcs.commit(message)
-        vcs.push('origin')
+        vcs.push('origin', 'master')
 
 watcher = EventWatcher(['./sandbox'], cb)
 try:
