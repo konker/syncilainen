@@ -12,8 +12,7 @@ class EventImpl(object):
 
 
 class EventWatcherImpl(object):
-    def __init__(self, file_paths, action):
-        self.file_paths = file_paths
+    def __init__(self, watch_directory, action):
         self.handler = EventHandlerImpl(action)
 
         mask = pyinotify.IN_ATTRIB
@@ -25,7 +24,7 @@ class EventWatcherImpl(object):
 
         self.__wm = pyinotify.WatchManager()
         self.__notifier = pyinotify.Notifier(self.__wm, self.handler)
-        wdd = self.__wm.add_watch(file_paths, mask, rec=True)
+        wdd = self.__wm.add_watch([watch_directory], mask, rec=True)
 
     def start(self):
         self.__notifier.loop()

@@ -12,13 +12,12 @@ class EventImpl(object):
 
 
 class EventWatcherImpl(object):
-    def __init__(self, file_paths, action):
+    def __init__(self, watch_directory, action):
         self.handler = EventHandlerImpl(action)
 
         self.__observer = fsevents.Observer()
-        for f in file_paths:
-            stream = fsevents.Stream(self.handler, f, file_events=True)
-            self.__observer.schedule(stream)
+        stream = fsevents.Stream(self.handler, watch_directory, file_events=True)
+        self.__observer.schedule(stream)
 
     def start(self):
         self.__observer.start()

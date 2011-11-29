@@ -3,7 +3,7 @@ from vcs import VCS
 from notifier import NORMAL_LEVEL, ERROR_LEVEL
 
 class Action(object):
-    def __init__(self, watch_directory, notifier):
+    def __init__(self, watch_directory, notifier=None):
         self.watch_directory = watch_directory
         self.notifier = notifier
         self.vcs = VCS(watch_directory)
@@ -14,7 +14,8 @@ class Action(object):
 
         ok,error = self.vcs.pull()
         if not ok:
-            self.notifier.notify(error, ERROR_LEVEL)
+            if self.notifier:
+                self.notifier.notify(error, ERROR_LEVEL)
             return
 
         status = self.vcs.status()
@@ -24,21 +25,18 @@ class Action(object):
 
             ok,error = self.vcs.commit_all(message)
             if not ok:
-                self.notifier.notify(error, ERROR_LEVEL)
+                if self.notifier:
+                    self.notifier.notify(error, ERROR_LEVEL)
                 return
 
             ok,error = self.vcs.push()
             if not ok:
-                self.notifier.notify(error, ERROR_LEVEL)
-
-                '''
-                # Do another pull to auto-merge in conflicts if any
-                ok,error = self.vcs.pull()
-                if not ok:
+                if self.notifier:
                     self.notifier.notify(error, ERROR_LEVEL)
-                '''
+
                 return
 
             # Everything went OK
-            self.notifier.notify(message, NORMAL_LEVEL)
+            if self.notifier:
+                self.notifier.notify(message, NORMAL_LEVEL)
 

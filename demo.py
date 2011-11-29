@@ -6,9 +6,9 @@ from actions.vcs_action import Action
 
 WATCH_DIRECTORY = os.path.abspath('./sandbox')
 
-notifier = Notifier('Syncilainen')
-action = Action(WATCH_DIRECTORY, notifier)
-watcher = EventWatcher([WATCH_DIRECTORY], action)
+action = Action(WATCH_DIRECTORY)
+action.notifier = Notifier('Syncilainen')
+watcher = EventWatcher(action)
 try:
     watcher.start()
 except KeyboardInterrupt:
