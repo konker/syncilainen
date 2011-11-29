@@ -9,7 +9,7 @@ class VCS(object):
         cmd = "git status --porcelain -uall"
         return self._parse_status(self._exec_cmd_(cmd))
 
-    def add(self, filename):
+    def add(self, filename='.'):
         cmd = "git add %s" % filename
         return self._exec_cmd_(cmd)
 
@@ -17,13 +17,19 @@ class VCS(object):
         cmd = "git commit -m \"%s\"" % message
         return self._exec_cmd_(cmd)
 
-    def pull(self, remote, branch):
+    def pull(self, remote='origin', branch='master'):
         cmd = "git pull %s %s" % (remote, branch)
         return self._exec_cmd_(cmd)
 
-    def push(self, remote, branch):
+    def push(self, remote='origin', branch='master'):
         cmd = "git push %s %s" % (remote, branch)
         return self._exec_cmd_(cmd)
+
+    def commit_and_push(self, message):
+        self.add()
+        self.commit(message)
+        self.push()
+        pass
 
     def _exec_cmd_(self, cmd):
         pipe = subprocess.Popen(cmd, shell=True, cwd=self.repo_directory, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
