@@ -1,3 +1,4 @@
+import os.path
 import time
 import subprocess
 from shell.cmd import exec_cmd
@@ -5,11 +6,12 @@ from shell.cmd import exec_cmd
 class VCS(object):
     def __init__(self, repo_directory):
         self.repo_directory = repo_directory
+        self.ignore_path = os.path.join(repo_directory, '.git')
 
     def status(self):
         cmd = "git status --porcelain -uall"
-        out = exec_cmd(cmd, self.repo_directory)
-        return self._parse_status(out)
+        out,error = exec_cmd(cmd, self.repo_directory)
+        return self._parse_status(out, error)
 
     def add(self, filename='.'):
         cmd = "git add %s" % filename
@@ -33,9 +35,9 @@ class VCS(object):
         self.push()
         pass
 
-    def _parse_status(self, s):
+    def _parse_status(self, out, error):
         ret = []
-        for f in s.split("\n"):
+        for f in out.split("\n"):
             if not f == '':
                 ret.append(tuple(f.split()))
         return ret

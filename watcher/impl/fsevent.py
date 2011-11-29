@@ -8,7 +8,7 @@ class EventImpl(object):
         self.mask = rep.mask
 
     def __str__(self):
-        return "EventImpl: %s, %s" % (self.mask, self.filename)
+        return "EventImpl: %s, %s" % (self.mask, self.pathname)
 
 
 class EventWatcherImpl(object):
