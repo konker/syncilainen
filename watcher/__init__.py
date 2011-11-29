@@ -10,6 +10,6 @@ except ImportError:
         raise UnknownAPIException()
 
 
-def EventWatcher(file_paths, callback):
-    return EventWatcherImpl(file_paths, callback)
+def EventWatcher(file_paths, action):
+    return EventWatcherImpl(file_paths, action)
 

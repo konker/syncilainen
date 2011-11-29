@@ -8,13 +8,12 @@ class EventImpl(object):
         self.mask = rep.mask
 
     def __str__(self):
-        return "EventImpl: %s, %s" % (self.mask, self.pathname)
+        return "fsevent.EventImpl: %s, %s" % (self.mask, self.pathname)
 
 
 class EventWatcherImpl(object):
-    def __init__(self, file_paths, callback):
-        self.file_paths = file_paths
-        self.handler = EventHandlerImpl(callback)
+    def __init__(self, file_paths, action):
+        self.handler = EventHandlerImpl(action)
 
         self.__observer = fsevents.Observer()
         for f in file_paths:
@@ -29,10 +28,10 @@ class EventWatcherImpl(object):
 
 
 class EventHandlerImpl(object):
-    def __init__(self, cb):
-        self.callback = lambda x: cb(x)
+    def __init__(self, action):
+        self.action = action
 
     def __call__(self, event):
-        self.callback(EventImpl(event))
+        self.action.callback(EventImpl(event))
 
 

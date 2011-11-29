@@ -8,13 +8,13 @@ class EventImpl(object):
         self.mask = rep.mask
 
     def __str__(self):
-        return "EventImpl: %s, %s" % (self.mask, self.pathname)
+        return "inotify.EventImpl: %s, %s" % (self.mask, self.pathname)
 
 
 class EventWatcherImpl(object):
-    def __init__(self, file_paths, callback):
+    def __init__(self, file_paths, action):
         self.file_paths = file_paths
-        self.handler = EventHandlerImpl(callback)
+        self.handler = EventHandlerImpl(action)
 
         mask = pyinotify.IN_ATTRIB
         mask |= pyinotify.IN_CREATE
@@ -36,9 +36,9 @@ class EventWatcherImpl(object):
 
 
 class EventHandlerImpl(pyinotify.ProcessEvent):
-    def __init__(self, callback):
-        self.callback = callback
+    def __init__(self, action):
+        self.action = action
 
     def process_default(self, event):
-        self.callback(EventImpl(event))
+        self.action.callback(EventImpl(event))
 
