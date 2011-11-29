@@ -13,11 +13,11 @@ class VCS(object):
         cmd = "git add %s" % filename
         return self._exec_cmd_(cmd)
 
-    def commit(message):
+    def commit(self, message):
         cmd = "git commit -m \"%s\"" % message
         return self._exec_cmd_(cmd)
 
-    def push(remote):
+    def push(self, remote):
         cmd = "git push %s" % remote
         return self._exec_cmd_(cmd)
 
