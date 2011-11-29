@@ -17,6 +17,10 @@ class VCS(object):
         cmd = "git commit -m \"%s\"" % message
         return self._exec_cmd_(cmd)
 
+    def pull(self, remote):
+        cmd = "git pull %s" % remote
+        return self._exec_cmd_(cmd)
+
     def push(self, remote):
         cmd = "git push %s" % remote
         return self._exec_cmd_(cmd)

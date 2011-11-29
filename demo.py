@@ -11,6 +11,7 @@ def cb(event):
         message = "syncilainen: %s: %s" % (datetime.now().isoformat(), ','.join(files))
 
         print(message)
+        vcs.pull('origin')
         vcs.add('.')
         vcs.commit(message)
         vcs.push('origin')
