@@ -1,3 +1,12 @@
+# -*- coding: utf-8 -*-
+#
+# vcs/impl/git.py
+# Wrapper around the git command
+#
+# Authors: Konrad Markus <konker@gmail.com>
+#
+
+import logging
 import os.path
 import time
 import subprocess
@@ -48,7 +57,7 @@ class VCSImpl(object):
     def push(self, remote='origin', branch='master'):
         cmd = "git push --porcelain %s %s" % (remote, branch)
         stdout,stderr = exec_cmd(cmd, self.repo_directory)
-        if ('[rejected]' in stdout):
+        if ('[rejected]' in stdout or 'fatal' in stderr):
             return NOT_OK,stderr
 
         return OK,stdout

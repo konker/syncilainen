@@ -9,10 +9,19 @@ NORMAL_LEVEL_IMPL = 0
 ERROR_LEVEL_IMPL = 1
 
 class NotifierImpl(object):
-    def __init__(self, title):
+    def __init__(self, title, disable_after_n_errors=-1):
         self.title = title
+        self.disable_after_n_errors = disable_after_n_errors
+        self._consecutive_errors = 0
 
     def notify(self, message, level=NORMAL_LEVEL_IMPL):
-        cmd = "growlnotify --message \"%s\" --priority %d --title \"%s\"" % (message, level, self.title)
-        return exec_cmd(cmd)
+        if level == ERROR_LEVEL_IMPL:
+            self._consecutive_errors = self._consecutive_errors + 1
+        else:
+            self._consecutive_errors = 0
+
+        if self.disable_after_n_errors > 0:
+            if self._consecutive_errors < self.disable_after_n_errors:
+                cmd = "growlnotify --message \"%s\" --priority %d --title \"%s\"" % (message, level, self.title)
+                exec_cmd(cmd)
     

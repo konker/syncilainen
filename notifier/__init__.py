@@ -12,6 +12,6 @@ except ImportError:
 NORMAL_LEVEL = NORMAL_LEVEL_IMPL
 ERROR_LEVEL = ERROR_LEVEL_IMPL
 
-def Notifier(title):
-    return NotifierImpl(title)
+def Notifier(title, disable_after_n_errors=-1):
+    return NotifierImpl(title, disable_after_n_errors)
 

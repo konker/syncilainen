@@ -2,6 +2,7 @@
 sandbox
 __scrap
 *.py[co]
+*.log
 
 # Packages
 *.egg

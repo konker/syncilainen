@@ -1,0 +1,14 @@
+{
+    "watch_directories": [{
+        "path": "~/WORKING/syncilainen/sandbox",
+        "notifier": {
+            "enabled": true,
+            "disable_after_n_errors": 3
+        },
+        "action": {
+            "class": "vcs",
+            "type": "git",
+            "remote": "origin"
+        }
+    }]
+}
