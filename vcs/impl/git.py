@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #
-# vcs/impl/git.py
+# vcs.impl.git
+#
 # Wrapper around the git command
 #
 # Authors: Konrad Markus <konker@gmail.com>
@@ -24,7 +25,7 @@ class VCSImpl(object):
     def __init__(self, repo_directory):
         self.repo_directory = repo_directory
         self.ignore_path = os.path.join(repo_directory, '.git')
-        logging.info("Using git VCS")
+        logging.info("Using VCS: git")
 
     def status(self):
         cmd = "git status --porcelain -uall"
@@ -33,6 +34,14 @@ class VCSImpl(object):
 
     def add(self, filename='.'):
         cmd = "git add %s" % filename
+        stdout,stderr =  exec_cmd(cmd, self.repo_directory)
+        if (stderr != ''):
+            return NOT_OK,stderr
+
+        return OK,stdout
+
+    def commit(self, message):
+        cmd = "git commit -m \"%s\"" % message
         stdout,stderr =  exec_cmd(cmd, self.repo_directory)
         if (stderr != ''):
             return NOT_OK,stderr

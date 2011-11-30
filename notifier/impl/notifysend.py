@@ -1,3 +1,11 @@
+# -*- coding: utf-8 -*-
+#
+# watcher.impl.notifysend
+# 
+# notify-send implementation of the Notifier interface (Linux)
+#
+# Authors: Konrad Markus <konker@gmail.com>
+#
 
 import logging
 import subprocess
@@ -15,7 +23,7 @@ class NotifierImpl(object):
         self.title = title
         self.disable_after_n_errors = disable_after_n_errors
         self._consecutive_errors = 0
-        logging.info("Using notify-send notifications")
+        logging.info("Using Notifier: notify-send")
 
     def notify(self, message, level=NORMAL_LEVEL_IMPL):
         if level == ERROR_LEVEL_IMPL:

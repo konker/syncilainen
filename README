@@ -1,7 +1,7 @@
 syncilainen
 ==============================================================================
 Monitor a pre-configured directory for changes and then synch
-automatically to a preconfigured version control respository.
+automatically to a pre-configured version control respository.
 
 Status
 ------------------------------------------------------------------------------

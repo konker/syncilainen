@@ -1,5 +1,13 @@
-import subprocess
+# -*- coding: utf-8 -*-
+#
+# shell.cmd
+# 
+# Execute shell commands in a subprocess
+#
+# Authors: Konrad Markus <konker@gmail.com>
+#
 
+import subprocess
 
 def exec_cmd_out(cmd, cwd=None):
     stdout,stderr = exec_cmd(cmd, cwd)

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #
-# actions/vcs_actions.py
+# actions.vcs_actions
+# 
 # Commit to a remote VCS repository on filesystem events
 #
 # Authors: Konrad Markus <konker@gmail.com>
@@ -16,7 +17,7 @@ class Action(object):
         self.watch_directory = watch_directory
         self.notifier = notifier
         self.vcs = VCS(watch_directory)
-        logging.info("Using vcs Action")
+        logging.info("Using Action: vcs")
 
     def callback(self, event):
         if self.vcs.ignore_path in event.pathname:
@@ -35,6 +36,14 @@ class Action(object):
         if len(status) > 0:
             modes,files = zip(*status)
             message = "syncilainen: %s: %s" % (datetime.now().isoformat(), ','.join(files))
+
+            logging.debug("%s: add" % event.pathname)
+            ok,error = self.vcs.add()
+            if not ok:
+                logging.error("%s: add" % error)
+                if self.notifier:
+                    self.notifier.notify(error, ERROR_LEVEL)
+                return
 
             logging.debug("%s: commit_all" % event.pathname)
             ok,error = self.vcs.commit_all(message)

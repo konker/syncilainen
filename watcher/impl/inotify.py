@@ -1,3 +1,12 @@
+# -*- coding: utf-8 -*-
+#
+# watcher.impl.inotify
+# 
+# pyinotify implementation of the EventWatcher interface (Linux)
+#
+# Authors: Konrad Markus <konker@gmail.com>
+#
+
 import pyinotify
 import logging
 
@@ -5,8 +14,12 @@ import logging
 class EventImpl(object):
     def __init__(self, rep):
         # 'dir', 'mask', 'maskname', 'name', 'path', 'pathname', 'wd'
-        self.pathname = rep.pathname
-        self.mask = rep.mask
+        if rep:
+            self.pathname = rep.pathname
+            self.mask = rep.mask
+        else:
+            self.pathname = ''
+            self.mask = 0
 
     def __str__(self):
         return "inotify.EventImpl: %s, %s" % (self.mask, self.pathname)
@@ -26,7 +39,7 @@ class EventWatcherImpl(object):
         self.__wm = pyinotify.WatchManager()
         self.__notifier = pyinotify.Notifier(self.__wm, self.handler)
         self.__wm.add_watch([watch_directory], mask, rec=True)
-        logging.info("Using inotify watcher")
+        logging.info("Using EventWatcher: inotify")
 
     def start(self):
         self.__notifier.loop()

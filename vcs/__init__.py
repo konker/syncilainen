@@ -1,10 +1,18 @@
+# -*- coding: utf-8 -*-
+#
+# vcs
+# 
+# Dynamically loads a VCS interface implementation
+#
+# Authors: Konrad Markus <konker@gmail.com>
+#
 
-class UnknownAPIException(Exception): pass
+class UnknownVCSException(Exception): pass
 
 try:
     from impl.git import VCSImpl
 except ImportError:
-    raise UnknownAPIException()
+    raise UnknownVCSException()
 
 
 def VCS(repo_directory):

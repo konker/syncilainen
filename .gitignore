@@ -3,6 +3,7 @@ sandbox
 __scrap
 *.py[co]
 *.log
+*.pid
 
 # Packages
 *.egg

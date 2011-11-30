@@ -1,5 +1,11 @@
-
-class UnknownAPIException(Exception): pass
+# -*- coding: utf-8 -*-
+#
+# notifier
+# 
+# Dynamically loads a Notifier interface implementation
+#
+# Authors: Konrad Markus <konker@gmail.com>
+#
 
 try:
     from impl.growlnotify import NotifierImpl, NORMAL_LEVEL_IMPL, ERROR_LEVEL_IMPL

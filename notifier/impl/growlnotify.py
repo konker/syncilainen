@@ -1,3 +1,11 @@
+# -*- coding: utf-8 -*-
+#
+# watcher.impl.growlnotify
+# 
+# growlnotify implementation of the Notifier interface (Mac OS X)
+#
+# Authors: Konrad Markus <konker@gmail.com>
+#
 
 import logging
 import subprocess
@@ -15,7 +23,7 @@ class NotifierImpl(object):
         self.title = title
         self.disable_after_n_errors = disable_after_n_errors
         self._consecutive_errors = 0
-        logging.info("Using growlnotify notifications")
+        logging.info("Using Notifier: growlnotify")
 
     def notify(self, message, level=NORMAL_LEVEL_IMPL):
         if level == ERROR_LEVEL_IMPL:

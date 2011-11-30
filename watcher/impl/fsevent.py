@@ -1,11 +1,25 @@
+# -*- coding: utf-8 -*-
+#
+# watcher.impl.fsevent
+# 
+# MacFSEvents implementation of the EventWatcher interface (Mac OS X)
+#
+# Authors: Konrad Markus <konker@gmail.com>
+#
+
 import fsevents
 import logging
+
 
 class EventImpl(object):
     def __init__(self, rep):
         # 'cookie', 'mask', 'name'
-        self.pathname = rep.name
-        self.mask = rep.mask
+        if rep:
+            self.pathname = rep.name
+            self.mask = rep.mask
+        else:
+            self.pathname = ''
+            self.mask = 0
 
     def __str__(self):
         return "fsevent.EventImpl: %s, %s" % (self.mask, self.pathname)
@@ -17,7 +31,7 @@ class EventWatcherImpl(object):
 
         self._observer = fsevents.Observer()
         self._stream = fsevents.Stream(self.handler, watch_directory, file_events=True)
-        logging.info("Using fsevents watcher")
+        logging.info("Using EventWatcher: fsevents")
 
     def start(self):
         self._observer.schedule(self._stream)
