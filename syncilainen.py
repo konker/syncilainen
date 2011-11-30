@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-# demo.py
+# syncilainen.py
 # 
 #
 # Authors: Konrad Markus <konker@gmail.com>
