@@ -7,6 +7,8 @@
 # Authors: Konrad Markus <konker@gmail.com>
 #
 
+import pathhack
+
 import os.path
 import logging
 from watcher import EventWatcher
@@ -31,8 +33,9 @@ def main(config):
 
 
 if __name__ == '__main__':
+    import sys
     import optparse
-    import json
+    from lib import json
 	 
     # read in command line options
     parser = optparse.OptionParser()
@@ -64,13 +67,14 @@ if __name__ == '__main__':
     try:
         fp = open(options.conf_file)
         config = json.load(fp)
-    except Exception as ex:
-        logging.error(ex)
+    except:
+        logging.error(sys.exc_info()[1])
         exit(1)
 
     # start
     if config:
         main(config)
     else:
+        logging.error("Could not load config")
         exit(2)
 

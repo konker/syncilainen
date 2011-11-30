@@ -1,4 +1,5 @@
 import pyinotify
+import logging
 
 
 class EventImpl(object):
@@ -24,7 +25,8 @@ class EventWatcherImpl(object):
 
         self.__wm = pyinotify.WatchManager()
         self.__notifier = pyinotify.Notifier(self.__wm, self.handler)
-        wdd = self.__wm.add_watch([watch_directory], mask, rec=True)
+        self.__wm.add_watch([watch_directory], mask, rec=True)
+        logging.info("Using inotify watcher")
 
     def start(self):
         self.__notifier.loop()

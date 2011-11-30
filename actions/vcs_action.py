@@ -16,6 +16,7 @@ class Action(object):
         self.watch_directory = watch_directory
         self.notifier = notifier
         self.vcs = VCS(watch_directory)
+        logging.info("Using vcs Action")
 
     def callback(self, event):
         if self.vcs.ignore_path in event.pathname:

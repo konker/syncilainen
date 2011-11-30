@@ -24,6 +24,7 @@ class VCSImpl(object):
     def __init__(self, repo_directory):
         self.repo_directory = repo_directory
         self.ignore_path = os.path.join(repo_directory, '.git')
+        logging.info("Using git VCS")
 
     def status(self):
         cmd = "git status --porcelain -uall"

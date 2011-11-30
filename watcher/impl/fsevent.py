@@ -1,5 +1,5 @@
 import fsevents
-
+import logging
 
 class EventImpl(object):
     def __init__(self, rep):
@@ -15,15 +15,17 @@ class EventWatcherImpl(object):
     def __init__(self, watch_directory, action):
         self.handler = EventHandlerImpl(action)
 
-        self.__observer = fsevents.Observer()
-        stream = fsevents.Stream(self.handler, watch_directory, file_events=True)
-        self.__observer.schedule(stream)
+        self._observer = fsevents.Observer()
+        self._stream = fsevents.Stream(self.handler, watch_directory, file_events=True)
+        logging.info("Using fsevents watcher")
 
     def start(self):
-        self.__observer.start()
+        self._observer.schedule(self._stream)
+        self._observer.start()
 
     def stop(self):
-        self.__observer.stop()
+        self._observer.unschedule(self._stream)
+        self._observer.stop()
 
 
 class EventHandlerImpl(object):

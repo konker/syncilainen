@@ -1,3 +1,5 @@
+
+import logging
 import subprocess
 from shell.cmd import exec_cmd
 
@@ -13,6 +15,7 @@ class NotifierImpl(object):
         self.title = title
         self.disable_after_n_errors = disable_after_n_errors
         self._consecutive_errors = 0
+        logging.info("Using notify-send notifications")
 
     def notify(self, message, level=NORMAL_LEVEL_IMPL):
         if level == ERROR_LEVEL_IMPL:
