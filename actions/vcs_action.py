@@ -24,10 +24,10 @@ class Action(object):
             logging.debug("ignoring: %s" % event.pathname)
             return
 
-        logging.debug("%s: pull" % event.pathname)
+        logging.debug("%s: pull anyway" % event.pathname)
         ok,error = self.vcs.pull()
         if not ok:
-            logging.error("%s: pull" % error)
+            logging.error("%s: pull anyway" % error)
             if self.notifier:
                 self.notifier.notify(error, ERROR_LEVEL)
             return
@@ -59,11 +59,19 @@ class Action(object):
                 logging.error("%s: push" % error)
                 if self.notifier:
                     self.notifier.notify(error, ERROR_LEVEL)
-
                 return
 
             # Everything went OK
             logging.info("%s: OK: %s" % (event.pathname, message))
             if self.notifier:
                 self.notifier.notify(message, NORMAL_LEVEL)
+
+        else:
+            logging.info("%s: push anyway" % event.pathname)
+            ok,error = self.vcs.push()
+            if not ok:
+                logging.error("%s: push anyway" % error)
+                if self.notifier:
+                    self.notifier.notify(error, ERROR_LEVEL)
+                return
 

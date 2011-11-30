@@ -22,8 +22,6 @@ from watcher import EventWatcher, Event
 from notifier import Notifier
 from actions.vcs_action import Action
 
-PULL_TIMER_DELAY_SECS = 30.0
-
 def main():
     # read in command line options
     parser = optparse.OptionParser()
@@ -89,13 +87,14 @@ def main():
             except KeyboardInterrupt:
                 watcher.stop()
 
-        def pull_timer():
+        def pull_timer(secs):
             action.callback(Event({}))
-            t = threading.Timer(PULL_TIMER_DELAY_SECS, pull_timer)
-            t.start()
+            if secs > 0:
+                t = threading.Timer(secs, pull_timer, [secs])
+                t.start()
 
         # start pull timer
-        pull_timer()
+        pull_timer(d['auto_pull_secs'])
 
     else:
         logging.error("Could not load config")

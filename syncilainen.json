@@ -1,5 +1,6 @@
 {
     "watch_directories": [{
+        "auto_pull_secs": 30,
         "path": "~/WORKING/syncilainen/sandbox",
         "notifier": {
             "enabled": true,
