@@ -1,10 +1,10 @@
 
 import logging
 import subprocess
-from shell.cmd import exec_cmd
+from shell.cmd import exec_cmd, exec_cmd_out
 
 # try to locate the growlnotify command line tool, or raise ImportError
-if exec_cmd("which growlnotify") == '':
+if exec_cmd_out("which growlnotify") == '':
     raise ImportError()
 
 NORMAL_LEVEL_IMPL = 0

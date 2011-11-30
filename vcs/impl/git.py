@@ -10,13 +10,13 @@ import logging
 import os.path
 import time
 import subprocess
-from shell.cmd import exec_cmd
+from shell.cmd import exec_cmd, exec_cmd_out
 
 OK = True
 NOT_OK = False
 
 # try to locate the git command line tool, or raise ImportError
-if exec_cmd("which git") == '':
+if exec_cmd_out("which git") == '':
     raise ImportError()
 
 
