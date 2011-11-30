@@ -10,7 +10,9 @@ TODO / NOTES
 - tidy up code
     - headers
 - tests?
-
+- git gc --aggressive
+    - periodically?
+    - every commit?
 
 
 General
