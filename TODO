@@ -1,6 +1,20 @@
 TODO / NOTES
 ==============================================================================
 
+- periodic pull?
+- push if local repo ahead of remote?
+    - even if working dir is clean
+- daemonize
+- upstart/launchd scripts
+- documentation
+- tidy up code
+    - headers
+- tests?
+
+
+
+General
+------------------------------------------------------------------------------
 - Python
     - pynotify: linux
     - fsevents: mac
