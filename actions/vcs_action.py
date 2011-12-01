@@ -35,7 +35,9 @@ class Action(object):
         status = self.vcs.status()
         if len(status) > 0:
             modes,files = zip(*status)
-            message = "syncilainen: %s: %s" % (datetime.now().isoformat(), ','.join(files))
+
+            file_list = ','.join(files)
+            message = "syncilainen: %s: %s" % (datetime.now().isoformat(), file_list)
 
             logging.debug("%s: add" % event.pathname)
             ok,error = self.vcs.add()
@@ -64,7 +66,7 @@ class Action(object):
             # Everything went OK
             logging.info("%s: OK: %s" % (event.pathname, message))
             if self.notifier:
-                self.notifier.notify(message, NORMAL_LEVEL)
+                self.notifier.notify(file_list, NORMAL_LEVEL)
 
         else:
             logging.info("%s: push anyway" % event.pathname)
