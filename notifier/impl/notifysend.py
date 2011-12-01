@@ -12,7 +12,8 @@ import subprocess
 from shell.cmd import exec_cmd, exec_cmd_out
 
 # try to locate the notify-send command line tool, or raise ImportError
-if exec_cmd_out("which notify-send") == '':
+NOTIFY_SEND = exec_cmd_out("which notify-send").strip() 
+if NOTIFY_SEND == '':
     raise ImportError()
 
 NORMAL_LEVEL_IMPL = 0
@@ -23,7 +24,7 @@ class NotifierImpl(object):
         self.title = title
         self.disable_after_n_errors = disable_after_n_errors
         self._consecutive_errors = 0
-        logging.info("Using Notifier: notify-send")
+        logging.info("Using Notifier: %s" % NOTIFY_SEND)
 
     def notify(self, message, level=NORMAL_LEVEL_IMPL):
         if level == ERROR_LEVEL_IMPL:
@@ -33,7 +34,7 @@ class NotifierImpl(object):
 
         if self.disable_after_n_errors > 0:
             if self._consecutive_errors < self.disable_after_n_errors:
-                cmd = "notify-send \"%s\" \"%s\"" % (self.title, message)
+                cmd = "%s \"%s\" \"%s\"" % (NOTIFY_SEND, self.title, message)
                 exec_cmd(cmd)
     
 

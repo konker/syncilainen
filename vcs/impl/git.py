@@ -17,7 +17,8 @@ OK = True
 NOT_OK = False
 
 # try to locate the git command line tool, or raise ImportError
-if exec_cmd_out("which git") == '':
+GIT = exec_cmd_out("which git").strip()
+if GIT == '':
     raise ImportError()
 
 
@@ -28,12 +29,12 @@ class VCSImpl(object):
         logging.info("Using VCS: git")
 
     def status(self):
-        cmd = "git status --porcelain -uall"
+        cmd = "%s status --porcelain -uall" % GIT
         stdout,stderr = exec_cmd(cmd, self.repo_directory)
         return self._parse_status(stdout, stderr)
 
     def add(self, filename='.'):
-        cmd = "git add %s" % filename
+        cmd = "%s add %s" % (GIT, filename)
         stdout,stderr =  exec_cmd(cmd, self.repo_directory)
         if (stderr != ''):
             return NOT_OK,stderr
@@ -41,7 +42,7 @@ class VCSImpl(object):
         return OK,stdout
 
     def commit(self, message):
-        cmd = "git commit -m \"%s\"" % message
+        cmd = "%s commit -m \"%s\"" % (GIT, message)
         stdout,stderr =  exec_cmd(cmd, self.repo_directory)
         if (stderr != ''):
             return NOT_OK,stderr
@@ -49,7 +50,7 @@ class VCSImpl(object):
         return OK,stdout
 
     def commit_all(self, message):
-        cmd = "git commit --all -m \"%s\"" % message
+        cmd = "%s commit --all -m \"%s\"" % (GIT, message)
         stdout,stderr =  exec_cmd(cmd, self.repo_directory)
         if (stderr != ''):
             return NOT_OK,stderr
@@ -57,7 +58,7 @@ class VCSImpl(object):
         return OK,stdout
 
     def pull(self, remote='origin', branch='master'):
-        cmd = "git pull %s %s" % (remote, branch)
+        cmd = "%s pull %s %s" % (GIT, remote, branch)
         stdout,stderr = exec_cmd(cmd, self.repo_directory)
         if ('conflict' in stdout):
             return NOT_OK,stdout
@@ -65,7 +66,7 @@ class VCSImpl(object):
         return OK,stdout
 
     def push(self, remote='origin', branch='master'):
-        cmd = "git push --porcelain %s %s" % (remote, branch)
+        cmd = "%s push --porcelain %s %s" % (GIT, remote, branch)
         stdout,stderr = exec_cmd(cmd, self.repo_directory)
         if ('[rejected]' in stdout or 'fatal' in stderr):
             return NOT_OK,stderr
