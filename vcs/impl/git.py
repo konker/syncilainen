@@ -98,7 +98,7 @@ class VCSImpl(object):
         return OK,"No conflict detected"
 
     def pull(self, remote='origin', branch='master'):
-        cmd = "%s pull --no-ff %s %s" % (GIT, remote, branch)
+        cmd = "%s pull --ff-only %s %s" % (GIT, remote, branch)
         stdout,stderr = exec_cmd(cmd, self.repo_directory)
         if ('conflict' in stdout):
             return self.handle_conflict()
