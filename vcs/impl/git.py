@@ -100,7 +100,7 @@ class VCSImpl(object):
     def pull(self, remote='origin', branch='master'):
         cmd = "%s pull --ff-only %s %s" % (GIT, remote, branch)
         stdout,stderr = exec_cmd(cmd, self.repo_directory)
-        if ('conflict' in stdout):
+        if ('error' in stdout):
             return self.handle_conflict()
 
         return OK,stdout

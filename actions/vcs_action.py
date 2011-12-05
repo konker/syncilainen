@@ -47,10 +47,10 @@ class Action(object):
                     self.notifier.notify(error, ERROR_LEVEL)
                 return
 
-            logging.debug("%s: commit_all" % event.pathname)
-            ok,error = self.vcs.commit_all(message)
+            logging.debug("%s: commit" % event.pathname)
+            ok,error = self.vcs.commit(message)
             if not ok:
-                logging.error("%s: commit_all" % error)
+                logging.error("%s: commit" % error)
                 if self.notifier:
                     self.notifier.notify(error, ERROR_LEVEL)
                 return
