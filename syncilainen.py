@@ -102,5 +102,9 @@ def main(logfile=None, conf_file='syncilainen.json', debug=False):
 
 
 if __name__ == '__main__':
-	main()
+    try:
+	    main()
+    except KeyboardInterrupt:
+        logging.info("Interrupted, exiting")
+        exit(0)
 
