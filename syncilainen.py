@@ -94,7 +94,7 @@ def main(logfile=None, conf_file='syncilainen.json', debug=False):
                 t.start()
 
         # start pull timer
-        pull_timer(d['auto_pull_secs'])
+        #pull_timer(d['auto_pull_secs'])
 
     else:
         logging.error("Could not load config")
