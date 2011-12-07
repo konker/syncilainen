@@ -57,13 +57,14 @@ class Action(object):
                     unmerged = self.vcs.get_unmerged()
                     logging.debug("unmerged: %s" % unmerged)
 
-                    # theirs
-                    logging.debug("%s: save_theirs" % event.pathname)
-                    self.vcs.save_theirs(unmerged)
+                    for u in unmerged:
+                        # save theirs as <sha1>.<filename>
+                        logging.debug("%s: save_theirs" % event.pathname)
+                        self.vcs.save_theirs(u)
 
-                    # ours
-                    logging.debug("%s: force_ours" % event.pathname)
-                    self.vcs.force_ours(unmerged)
+                        # force ours to be <filename>
+                        logging.debug("%s: force_ours" % event.pathname)
+                        self.vcs.force_ours(u)
 
                     # recurse
                     logging.debug("%s: recurse" % event.pathname)
@@ -77,11 +78,11 @@ class Action(object):
 
     def callback(self, event):
         if self.vcs.ignore_path in event.pathname:
-            logging.debug("ignoring: %s" % event.pathname)
+            #logging.debug("ignoring: %s" % event.pathname)
             return
 
         if self._working:
-            logging.debug("working.. ignoring: %s" % event.pathname)
+            #logging.debug("working.. ignoring: %s" % event.pathname)
             return
 
         self._working = True

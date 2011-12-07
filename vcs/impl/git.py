@@ -125,12 +125,13 @@ class VCSImpl(object):
         return ret
 
     def _parse_ls_files(self, stdout, stderr):
-        #[FIXME: exactly the same as _parse_status?]
         ret = []
         for f in stdout.split("\n"):
             if not f == '':
                 ret.append(tuple(f.split()))
-        return ret
+
+        # split into groups of 3
+        return [ret[i:i+3] for i in range(0, len(ret), 3)]
 
     '''
     def handle_conflict(self):
