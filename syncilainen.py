@@ -25,7 +25,7 @@ from actions.vcs_action import Action
 def main(logfile=None, conf_file='syncilainen.json', debug=False):
     # read in command line options
     parser = optparse.OptionParser()
-    parser.add_option('-c', '--conf-file', dest='conf_file', default=conf_file, help='Config file location (defaults to hrm.conf)')
+    parser.add_option('-c', '--conf-file', dest='conf_file', default=conf_file, help="Config file location (defaults to %s)" % conf_file)
     parser.add_option('--debug', dest='debug', action='store_true', default=debug, help='Debug mode')
     parser.add_option('--log', dest='logfile', default=logfile, help='where to send log messages')
     
