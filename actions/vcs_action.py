@@ -13,7 +13,8 @@ from vcs import VCS, OK
 from notifier import NORMAL_LEVEL, ERROR_LEVEL
 
 class Action(object):
-    def __init__(self, watch_directory, notifier=None):
+    def __init__(self, id, watch_directory, notifier=None):
+        self.id = id
         self.watch_directory = watch_directory
         self.notifier = notifier
         self.vcs = VCS(watch_directory)
@@ -26,7 +27,7 @@ class Action(object):
             modes,files = zip(*status)
 
             file_list = ','.join(files)
-            message = "syncilainen: %s: %s" % (datetime.now().isoformat(), file_list)
+            message = "syncilainen[%s]: %s: %s" % aself.id, (datetime.now().isoformat(), file_list)
 
             logging.debug("%s: add" % event.pathname)
             result,error = self.vcs.add()
@@ -58,9 +59,9 @@ class Action(object):
                     logging.debug("unmerged: %s" % unmerged)
 
                     for u in unmerged:
-                        # save theirs as <sha1>.<filename>
+                        # save theirs as <id>.<sha1>.<filename>
                         logging.debug("%s: save_theirs" % event.pathname)
-                        self.vcs.save_theirs(u)
+                        self.vcs.save_theirs(u, id)
 
                         # force ours to be <filename>
                         logging.debug("%s: force_ours" % event.pathname)

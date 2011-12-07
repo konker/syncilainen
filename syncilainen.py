@@ -71,14 +71,13 @@ def main(logfile=None, conf_file='syncilainen.json', debug=False):
         exit(1)
 
     if config:
-        # start
+        id = config['id']
         for d in config['watch_directories']:
             # XXX: should str() be used here?
             watch_directory = str(os.path.abspath(os.path.expanduser(d['path'])))
-            logging.info("watching: %s", d['path'])
+            logging.info("%s watching: %s", config['id'], d['path'])
 
-            # TODO: not really using conf properly
-            action = Action(watch_directory)
+            action = Action(config['id'], watch_directory)
             if d['notifier']['enabled']:
                 action.notifier = Notifier('Syncilainen', d['notifier']['disable_after_n_errors'])
             watcher = EventWatcher(action)
@@ -86,16 +85,6 @@ def main(logfile=None, conf_file='syncilainen.json', debug=False):
                 watcher.start()
             except KeyboardInterrupt:
                 watcher.stop()
-
-        def pull_timer(secs):
-            action.callback(Event({}))
-            if secs > 0:
-                t = threading.Timer(secs, pull_timer, [secs])
-                t.start()
-
-        # start pull timer
-        #pull_timer(d['auto_pull_secs'])
-
     else:
         logging.error("Could not load config")
         exit(2)
