@@ -131,5 +131,5 @@ def test():
 if __name__ == "__main__":
     import syncilainen
     startstop()
-    syncilainen.main()
+    syncilainen.main(log)
 
