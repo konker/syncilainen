@@ -27,7 +27,7 @@ class Action(object):
             modes,files = zip(*status)
 
             file_list = ','.join(files)
-            message = "syncilainen[%s]: %s: %s" % aself.id, (datetime.now().isoformat(), file_list)
+            message = "syncilainen[%s]: %s: %s" % (self.id, datetime.now().isoformat(), file_list)
 
             logging.debug("%s: add" % event.pathname)
             result,error = self.vcs.add()
