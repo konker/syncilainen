@@ -130,6 +130,6 @@ def test():
 
 if __name__ == "__main__":
     import syncilainen
-    startstop()
-    syncilainen.main(log)
+    startstop(stdout='/Users/konker/WORKING/syncilainen/stdout.log')
+    syncilainen.init()
 
