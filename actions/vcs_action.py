@@ -13,7 +13,7 @@ from vcs import VCS, OK
 from notifier import NORMAL_LEVEL, ERROR_LEVEL
 
 class Action(object):
-    def __init__(self, watch_directory, notifier=None):
+    def __init__(self, watch_directory, auto_callback_secs=0, notifier=None):
         self.watch_directory = watch_directory
         self.notifier = notifier
         self.vcs = VCS(watch_directory)

@@ -1,6 +1,6 @@
 {
     "watch_directories": [{
-        "auto_pull_secs": 30,
+        "auto_callback_secs": 30,
         "path": "~/WORKING/notes",
         "notifier": {
             "enabled": true,

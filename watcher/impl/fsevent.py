@@ -34,10 +34,12 @@ class EventWatcherImpl(object):
         logging.info("Using EventWatcher: fsevents")
 
     def start(self):
+        logging.info("Starting: %s" % self)
         self._observer.schedule(self._stream)
         self._observer.start()
 
     def stop(self):
+        logging.info("Stopping: %s" % self)
         self._observer.unschedule(self._stream)
         self._observer.stop()
 
