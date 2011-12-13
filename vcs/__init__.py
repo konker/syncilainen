@@ -9,6 +9,9 @@
 
 class UnknownVCSException(Exception): pass
 
+OK = True
+NOT_OK = False
+
 try:
     from impl.git import VCSImpl
 except ImportError:
