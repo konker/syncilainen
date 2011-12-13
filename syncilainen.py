@@ -70,7 +70,7 @@ class Syncilainen(object):
                 watch_directory = str(os.path.abspath(os.path.expanduser(d['path'])))
                 logging.info("watching: %s", d['path'])
 
-                action = Action(watch_directory, d['auto_callback_secs'])
+                action = Action(config['id'], watch_directory, d['auto_callback_secs'])
                 if d['notifier']['enabled']:
                     action.notifier = Notifier('Syncilainen', d['notifier']['disable_after_n_errors'])
                 self.watchers.append(EventWatcher(action))
@@ -86,7 +86,7 @@ def read_options():
     parser.add_option('--debug', dest='debug', action='store_true', default=False, help='Debug mode')
     
     options, args = parser.parse_args()
-    if len(args) != 1:
+    if len(args) != 0:
         parser.error("Unknown arguments %s\n" % args)
     print(options)
     return options
@@ -120,7 +120,6 @@ def setup_logging(log_file=None, debug=False):
                             format=format,
                             filename=filename,
                             datefmt=datefmt)
-
 '''
         def pull_timer(secs):
             action.callback(Event({}))
@@ -130,11 +129,8 @@ def setup_logging(log_file=None, debug=False):
 
         # start pull timer
         #pull_timer(d['auto_pull_secs'])
-
-    else:
-        logging.error("Could not load config")
-        exit(2)
 '''
+
 def main():
     syncilainen = None
 

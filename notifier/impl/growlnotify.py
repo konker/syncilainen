@@ -27,6 +27,9 @@ class NotifierImpl(object):
         logging.info("Using Notifier: %s" % GROWLNOTIFY)
 
     def notify(self, message, level=NORMAL_LEVEL_IMPL):
+        if message == "":
+            return
+
         if level == ERROR_LEVEL_IMPL:
             self._consecutive_errors = self._consecutive_errors + 1
         else:

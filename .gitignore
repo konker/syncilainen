@@ -4,6 +4,7 @@ __scrap
 *.py[co]
 *.log
 *.pid
+syncilainen.json
 
 # Packages
 *.egg

@@ -77,16 +77,15 @@ class VCSImpl(object):
         stdout,stderr = exec_cmd(cmd, self.repo_directory)
         return self._parse_ls_files(stdout, stderr)
 
-    def save_theirs(self, unmerged):
+    def save_theirs(self, unmerged, id):
         # checkout "theirs" and move to a temporary file
         cmd = "%s checkout --theirs %s" % (GIT, unmerged[2][3])
-        #cmd = "%s show %s > %s.%s" % (GIT, ls_files[2][1], ls_files[2][1], ls_files[2][3])
         stdout,stderr = exec_cmd(cmd, self.repo_directory)
         if (stderr != ''):
             return NOT_OK,stderr
 
         src = os.path.join(self.repo_directory, unmerged[2][3])
-        dst = os.path.join(self.repo_directory, "%s.%s" % (unmerged[2][1], unmerged[2][3]))
+        dst = os.path.join(self.repo_directory, "%s.%s.%s" % (id, unmerged[2][1], unmerged[2][3]))
         logging.debug("move: %s -> %s" % (src, dst))
         shutil.move(src, dst)
         
