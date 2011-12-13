@@ -91,14 +91,15 @@ Conflicts
 ------------------------------------------------------------------------------
 1) add, commit all
 - push
-    -OK -> notify
+    - OK -> notify
     - NOT_OK [rejected]
         - git fetch
             - git merge
                 - OK -> notify
                 - NOT_OK: CONFLICT
                     - git ls_files -u
-                    - git show 3 > sha1.file.ext
+                    - git checkout --theirs file.ext
+                        - mv file.ext sha1.file.ext
                     - git checkout --ours file.ext
                     - GOTO 1)
 
