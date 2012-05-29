@@ -70,7 +70,7 @@ class Syncilainen(object):
                 watch_directory = str(os.path.abspath(os.path.expanduser(d['path'])))
                 logging.info("watching: %s", d['path'])
 
-                action = Action(config['id'], watch_directory, d['auto_callback_secs'])
+                action = Action(config['id'], watch_directory)
                 if d['notifier']['enabled']:
                     action.notifier = Notifier('Syncilainen', d['notifier']['disable_after_n_errors'])
                 self.watchers.append(EventWatcher(action))

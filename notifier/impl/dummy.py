@@ -4,7 +4,7 @@ NORMAL_LEVEL_IMPL = 0
 ERROR_LEVEL_IMPL = 1
 
 class NotifierImpl(object):
-    def __init__(self, title):
+    def __init__(self, title, disable_after_n_errors=-1):
         self.title = title
         logging.info("Using Notifier: dummy")
 
